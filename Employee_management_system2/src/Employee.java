@@ -45,6 +45,7 @@ class EmployeeManagement{
         do {
             System.out.println("1.INSERT");
             System.out.println("2.DISPLAY");
+            System.out.println("3.SEARCH");
             System.out.println("0.EXIT");
             System.out.print("Enter Your Choice : ");
             choice = s.nextInt();
@@ -80,11 +81,44 @@ class EmployeeManagement{
                     }
                     break;
                 case 2:
-                    System.out.println("------------------------K&D Music-------------------------------");
-                    li = al.listIterator();
-                    while (li.hasNext())
-                        System.out.println(li.next());
-                    System.out.println("------------------------K&D Music-------------------------------");
+                    if(file.isFile()) {
+                        ois = new ObjectInputStream(new FileInputStream(file));
+                        al = (ArrayList<Employee>) ois.readObject();
+                        ois.close();
+                        System.out.println("------------------------K&D Music-------------------------------");
+                        li = al.listIterator();
+                        while (li.hasNext())
+                            System.out.println(li.next());
+                        System.out.println("------------------------K&D Music-------------------------------");
+                    }else {
+                        System.out.println("File not Exists...!");
+                    }
+                    break;
+                case 3:
+                    if(file.isFile()) {
+                        ois = new ObjectInputStream(new FileInputStream(file));
+                        al = (ArrayList<Employee>) ois.readObject();
+                        ois.close();
+
+                        boolean found = false;
+                        System.out.println("Enter Employee ID to Search :");
+                        int id = s.nextInt();
+                        System.out.println("------------------------K&D Music-------------------------------");
+                        li = al.listIterator();
+                        while (li.hasNext()) {
+                            Employee e = (Employee) li.next();
+                            if (e.id == id) {
+                                System.out.println(e);
+                                found = true;
+                            }
+                        }
+                        if (!found)
+                            System.out.println("Record Not Found...!");
+
+                        System.out.println("------------------------K&D Music-------------------------------");
+                    }else {
+                        System.out.println("File not Exists...!");
+                    }
                     break;
 
             }
