@@ -8,6 +8,7 @@ import java.util.*;
 import java.io.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static java.lang.Integer.valueOf;
 
 
 //Create variable to get Attributes of employees **********************************
@@ -48,12 +49,14 @@ class EmployeeManagement{
             ois.close();
         }
 
-
+        System.out.println("*********L*O*G*I*N*********");
         System.out.print(" Enter user name => ");
         String userName = s2.nextLine();
 
         System.out.print(" Enter password => ");
         String password = s2.nextLine();
+
+
 
         if ("hasaranga".equals(userName) && "ravindu123".equals(password)) {
 
@@ -104,6 +107,9 @@ class EmployeeManagement{
                         }
                         System.out.println("Back to Menu [Press any key and Enter]");
                         String a1 = s2.nextLine();
+                        if ("back".equals(a1)){
+                            System.out.println("***********************Welcome to Back***********************");
+                    }
                         break;
                     case 2:
                         if (file.isFile()) {
@@ -120,6 +126,7 @@ class EmployeeManagement{
                         }
                         System.out.println("Back to Menu [Press any key and Enter]");
                         String a2 = s2.nextLine();
+
                         break;
                     case 3:
                         if (file.isFile()) {
@@ -294,8 +301,57 @@ class EmployeeManagement{
                 }
 
             } while (choice != 0);
-        }else {
-            System.out.println("UserName OR Password Incorrect");
+
+        }else if("user".equals(userName) && "user123".equals(password)){
+
+
+            do {
+                System.out.println("1.DISPLAY");
+                System.out.print("Enter what you need number : ");
+                choice = s.nextInt();
+                switch (choice) {
+                    case 1:
+                        if (file.isFile()) {
+                            ois = new ObjectInputStream(new FileInputStream(file));
+                            al = (ArrayList<Employee>) ois.readObject();
+                            ois.close();
+
+                            boolean found = false;
+//                            System.out.println("Enter password");
+//                            String emp = s1.nextLine();
+
+
+                            System.out.println("Enter Your ID  :");
+                            int id = s.nextInt();
+
+
+                            System.out.println("------------------------K&D Music-------------------------------");
+                            li = al.listIterator();
+                            while (li.hasNext()) {
+                                Employee e = (Employee) li.next();
+
+                                if (e.id==id ) {
+                                        System.out.println(e);
+
+                                        found = true;
+
+                                }
+                            }
+                            if (!found)
+                                System.out.println("Record Not Found...!");
+
+                            System.out.println("------------------------K&D Music-------------------------------");
+                        } else {
+                            System.out.println("File not Exists...!");
+                        }
+                        System.out.println("Back to Menu [Press any key and Enter]");
+                        String a10 = s2.nextLine();
+                        break;
+
+                }
+
+            }while (choice != 0);
+
 
         }
     }
